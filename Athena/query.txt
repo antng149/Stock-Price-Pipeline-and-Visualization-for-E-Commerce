@@ -1,0 +1,16 @@
+SELECT
+    name,
+    substr(ts, 1, 10) AS date,
+    AVG(volatility) AS average_volatility,
+    MAX(volatility) AS highest_volatility,
+    MIN(volatility) AS lowest_volatility
+FROM
+    "2023"
+WHERE
+    ((ts >= '2023-04-03 09:30:00' AND ts <= '2023-04-07 16:00:00')
+    OR (ts >= '2023-04-10 09:30:00' AND ts <= '2023-04-14 16:00:00'))
+    AND (substr(ts, 12, 8) >= '09:30:00' AND substr(ts, 12, 8) <= '16:00:00')
+    AND high IS NOT NULL
+GROUP BY
+    name,
+    substr(ts, 1, 10);
